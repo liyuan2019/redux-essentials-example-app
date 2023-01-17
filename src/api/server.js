@@ -134,6 +134,7 @@ export const handlers = [
     const posts = db.post.getAll().map(serializePost)
     return res(ctx.delay(ARTIFICIAL_DELAY_MS), ctx.json(posts))
   }),
+
   rest.post('/fakeApi/posts', function (req, res, ctx) {
     const data = req.body
 
@@ -154,12 +155,14 @@ export const handlers = [
     const post = db.post.create(data)
     return res(ctx.delay(ARTIFICIAL_DELAY_MS), ctx.json(serializePost(post)))
   }),
+
   rest.get('/fakeApi/posts/:postId', function (req, res, ctx) {
     const post = db.post.findFirst({
       where: { id: { equals: req.params.postId } },
     })
     return res(ctx.delay(ARTIFICIAL_DELAY_MS), ctx.json(serializePost(post)))
   }),
+
   rest.patch('/fakeApi/posts/:postId', (req, res, ctx) => {
     const { id, ...data } = req.body
     const updatedPost = db.post.update({
@@ -204,6 +207,7 @@ export const handlers = [
       ctx.json(serializePost(updatedPost))
     )
   }),
+
   rest.get('/fakeApi/notifications', (req, res, ctx) => {
     const numNotifications = getRandomInt(1, 5)
 
@@ -215,6 +219,7 @@ export const handlers = [
 
     return res(ctx.delay(ARTIFICIAL_DELAY_MS), ctx.json(notifications))
   }),
+
   rest.get('/fakeApi/users', (req, res, ctx) => {
     return res(ctx.delay(ARTIFICIAL_DELAY_MS), ctx.json(db.user.getAll()))
   }),
